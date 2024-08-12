@@ -1,0 +1,38 @@
+
+spring:
+  application:
+   name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.8:8848
+        service: ${spring.application.name}
+
+  datasource:
+    url: jdbc:mysql://192.168.1.8:3306/seata_order?useSSL=false
+    username: sapiece
+    password: 159357
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sapiece.entities
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.8:8848
+      namespace: public
+      group: "SEATA_GROUP"
+      application: seata-server
+  tx-service-group: default_tx_group
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+logging:
+  level:
+    io:
+      seata: info
+server:
+  port: 2001

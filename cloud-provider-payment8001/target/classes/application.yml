@@ -1,0 +1,18 @@
+
+spring:
+  profiles:
+    active: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.8:3306/db_2024
+    username: sapiece
+    password: 159357
+  application:
+    name: cloud-payment-service
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sapiece.entities
+server:
+  port: 8001

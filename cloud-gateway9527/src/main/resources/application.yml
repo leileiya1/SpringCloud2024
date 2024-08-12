@@ -1,0 +1,39 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.8:8848
+        service: ${spring.application.name}
+        port: 8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: pay-api-route1
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/get/**
+        - id: pay-api-route2
+#          uri: http://localhost:8001
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/info/**
+            - After=2024-08-07T09:48:03.747858100+08:00[Asia/Shanghai]
+            - Cookie=username,sapiece
+            - Header=X-Request-Id, \d+
+          filters:
+            - AddRequestHeader=X-Request-red,blue
+        - id: pay-api-route3
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/gateway/filter
+          filters:
+            - PrefixPath=/pay
+            - AddRequestHeader=X-Request-sapiece,blue
+            - SetRequestHeader=X-Request-sapiece,skyblue
+            - RemoveRequestHeader=X-Request-leilei,red

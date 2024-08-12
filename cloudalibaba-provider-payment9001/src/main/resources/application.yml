@@ -1,0 +1,13 @@
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      serverAddr: 192.168.1.8:8848 #如果用的云上托管版本，输入可访问的Nacos Server地址即可
+    sentinel:
+      transport:
+        dashboard: 192.168.1.8:8080 # Sentinel Dashboard 地址
+        port: 8719 # Sentinel Dashboard 端口
+server:
+  port: 9001
